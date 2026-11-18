@@ -140,19 +140,24 @@ body.cli .cont .cl{display:flex;align-items:center;gap:12px;background:#fff;bord
  .grid2{grid-template-columns:repeat(2,minmax(0,1fr))}
  .drop{position:fixed;left:12px;right:12px;width:auto;top:66px}
 }
-#fondo{position:fixed;inset:0;z-index:0;overflow:hidden;background:#0b0b0b}
-#fondo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 30%;opacity:0;transform:scale(1.08);transition:opacity 1.8s ease}
-#fondo img.on{opacity:1;animation:kb 9s ease-out forwards}
-@keyframes kb{from{transform:scale(1.08)}to{transform:scale(1)}}
-#fondo:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.15) 0%,rgba(0,0,0,.45) 35%,rgba(0,0,0,.8) 100%)}
-@media (prefers-reduced-motion:reduce){#fondo img.on{animation:none;transform:none}}
+#hero{position:relative;height:76vh;min-height:430px;max-height:760px;overflow:hidden;background:#0b0b0b}
+#hero .tr{display:flex;height:100%;will-change:transform}
+#hero .tr img{flex:0 0 100%;width:100%;height:100%;object-fit:cover;object-position:center 25%;display:block}
+#hero:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.3) 0%,rgba(0,0,0,0) 25%,rgba(0,0,0,.1) 50%,rgba(11,11,11,.97) 100%);pointer-events:none}
+#hero .hc{position:absolute;left:0;right:0;bottom:0;z-index:2;padding:0 22px 26px;max-width:480px;margin:0 auto}
+#hero .mk{display:flex;align-items:center;gap:14px}
+#hero .mk img{width:58px;height:58px;border-radius:14px;box-shadow:0 4px 18px rgba(0,0,0,.6)}
+#hero .mk b{font-family:var(--fd);font-size:32px;letter-spacing:.28em;color:#fff;text-transform:uppercase}
+#hero .hc p{color:#e8e1d2;margin:10px 0 16px;font-size:16px}
+#hero .cta{display:inline-block;background:var(--gold);color:#111;font-weight:700;font-size:17px;border-radius:999px;padding:14px 28px;text-decoration:none;border:0}
+#hero .dots{display:flex;gap:6px;margin-top:16px}
+#hero .dots i{width:7px;height:7px;border-radius:9px;background:rgba(255,255,255,.35);transition:all .4s}
+#hero .dots i.on{width:20px;background:var(--gold)}
 body.cli.confondo{background:#0b0b0b}
-body.cli.confondo .layout{position:relative;z-index:1}
-body.cli.confondo .phone{background:transparent;padding-top:34vh;min-height:0;padding-bottom:40px}
-body.cli.confondo .phone .hd b{color:#fff;text-shadow:0 2px 12px rgba(0,0,0,.6)}
-body.cli.confondo .phone .hd span{color:#e8e1d2!important;text-shadow:0 1px 8px rgba(0,0,0,.7)}
-body.cli.confondo .phone .hd img{box-shadow:0 4px 20px rgba(0,0,0,.5)}
-body.cli.confondo .cuerpo{background:#f6f3ec;border-radius:18px;padding:16px 16px 22px;box-shadow:0 12px 40px rgba(0,0,0,.55)}
+body.cli.confondo #carga{background:#0b0b0b}
+body.cli.confondo .phone{background:transparent;padding-top:6px;min-height:0;padding-bottom:40px}
+body.cli.confondo .phone .hd{display:none}
+body.cli.confondo .cuerpo{background:#f6f3ec;border-radius:18px;padding:16px 16px 22px;scroll-margin-top:12px}
 </style>
 </head>
 <body>
@@ -186,7 +191,7 @@ withSuccessHandler:function(f){ok=f;return o},withFailureHandler:function(f){fai
 datosPublicos:function(){fetch(API_URL+"?api=publico",{redirect:"follow"}).then(function(r){return r.json()}).then(function(x){x.ok?ok(x.data):fail({message:x.error||"Error"})}).catch(function(){fail({message:"No se pudo conectar. Revisá tu internet y probá de nuevo."})})},
 reservar:function(d){fetch(API_URL,{method:"POST",redirect:"follow",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({accion:"reservar",datos:d})}).then(function(r){return r.json()}).then(function(x){x.ok?ok(x.data):fail({message:x.error||"No se pudo reservar."})}).catch(function(){fail({message:"No se pudo conectar. Revisá tu internet y probá de nuevo."})})}
 };return o}}}}
-window.FOTOS_FONDO=["fotos/1.jpg","fotos/2.jpg","fotos/4.jpg","fotos/3.jpg"];
+window.FOTOS_FONDO=["fotos/1.jpg","fotos/5.jpg","fotos/2.jpg","fotos/6.jpg","fotos/3.jpg","fotos/7.jpg"];
 </script><script>
 var DIAS=["dom","lun","mar","mié","jue","vie","sáb"],MESES=["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"];
 var HORAS=["10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00","18:00","19:00"];
@@ -449,7 +454,7 @@ if(msg.indexOf("pesada")>=0){var resto=lote.filter(function(c){return c.op!="log
 var _render=render;render=function(){_render();sincronizar()};
 function aplicar(d){if(d.SERV)SERV=d.SERV;if(d.HS)HS=d.HS;if(d.OVR)OVR=d.OVR;if(d.B)B=Object.assign(B,d.B);if(d.logo!==undefined)B.logo=d.logo||"";if(d.cfg)cfg=Object.assign(cfg,d.cfg);if(d.RECDEF)RECDEF=d.RECDEF;
 var lg=$("lg");if(B.logo){lg.src=B.logo;lg.style.visibility="visible"}else lg.style.visibility="hidden";document.querySelector(".brand b").textContent=B.nombre||"Bneggas"}
-function cargarPublico(){google.script.run.withSuccessHandler(function(d){A={};for(var k in d.busy)d.busy[k].forEach(function(o){addI(dkey(k),o.h,o)});aplicar(d);
+function cargarPublico(){google.script.run.withSuccessHandler(function(d){A={};for(var k in d.busy)d.busy[k].forEach(function(o){addI(dkey(k),o.h,o)});aplicar(d);armarFondo();
 if(psv>=SERV.length)psv=0;render();cargando(false)}).withFailureHandler(function(e){cargando(false,"No se pudo cargar la página. Probá de nuevo en un rato.")}).datosPublicos()}
 function cargarPanel(){google.script.run.withSuccessHandler(function(d){A={};for(var k in d.items)d.items[k].forEach(function(o){addI(dkey(k),o.h,o)});
 aplicar(d);if(d.url)URLAPP=d.url;CUOTA=d.cuota;notifs=[];var lim=Date.now()-3*864e5;
@@ -471,9 +476,13 @@ document.addEventListener("visibilitychange",function(){if(!document.hidden)refr
 window.addEventListener("focus",function(){refrescar()});
 window.addEventListener("pageshow",function(e){if(e.persisted)refrescar()});
 setInterval(function(){if(!document.hidden)refrescar()},60000);
-function armarFondo(){var F=window.FOTOS_FONDO;if(!F||!F.length||$("fondo"))return;var d=document.createElement("div");d.id="fondo";d.setAttribute("aria-hidden","true");F.forEach(function(u,i){var im=new Image();im.src=u;im.alt="";if(i==0)im.className="on";d.appendChild(im)});document.body.insertBefore(d,document.body.firstChild);document.body.classList.add("confondo");var k=0,L=d.querySelectorAll("img");if(L.length>1)setInterval(function(){L[k].classList.remove("on");k=(k+1)%L.length;L[k].classList.add("on")},5500)}
+function armarFondo(){var F=window.FOTOS_FONDO;if(!F||!F.length||ADMIN)return;var h=$("hero");if(!h){h=document.createElement("section");h.id="hero";var n=F.length;h.innerHTML='<div class="tr">'+F.concat([F[0]]).map(function(u){return '<img src="'+u+'" alt="" loading="eager">'}).join("")+'</div><div class="hc"><div class="mk"><img id="hlogo" alt="" style="display:none"><b id="hnom"></b></div><p id="hdesc"></p><a class="cta" href="#" id="hcta">Reservá tu turno</a><div class="dots">'+F.map(function(_,i){return '<i'+(i?'':' class="on"')+'></i>'}).join("")+'</div></div>';document.body.insertBefore(h,document.body.firstChild);document.body.classList.add("confondo");
+$("hcta").onclick=function(e){e.preventDefault();var c=document.querySelector(".cuerpo");if(c)c.scrollIntoView({behavior:"smooth"})};
+var tr=h.querySelector(".tr"),D=h.querySelectorAll(".dots i"),k=0,quieto=window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches;
+if(n>1)setInterval(function(){if(document.hidden)return;k++;tr.style.transition=quieto?"none":"transform .9s cubic-bezier(.6,0,.2,1)";tr.style.transform="translateX(-"+k*100+"%)";D.forEach(function(d,i){d.classList.toggle("on",i==k%n)});if(k==n)setTimeout(function(){tr.style.transition="none";tr.style.transform="translateX(0)";k=0},950)},4000)}
+$("hnom").textContent=B.nombre||"Bneggas";$("hdesc").textContent=(B.desc?B.desc+" · ":"")+"Castelar";if(B.logo){$("hlogo").src=B.logo;$("hlogo").style.display=""}}
 if(ADMIN){document.body.classList.remove("cli");try{TOK=localStorage.getItem("bn_tok")}catch(e){}if(TOK){cargando(true);cargarPanel()}else pinScreen()}
-else{document.body.classList.add("cli");armarFondo();view="pagina";cargando(true);cargarPublico();setInterval(function(){if(!document.hidden&&!($("pn")&&$("pn").value))cargarPublico()},120000)}
+else{document.body.classList.add("cli");view="pagina";cargando(true);cargarPublico();setInterval(function(){if(!document.hidden&&!($("pn")&&$("pn").value))cargarPublico()},120000)}
 </script>
 
 </body>
