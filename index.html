@@ -140,6 +140,46 @@ body.cli .cont .cl{display:flex;align-items:center;gap:12px;background:#fff;bord
  .grid2{grid-template-columns:repeat(2,minmax(0,1fr))}
  .drop{position:fixed;left:12px;right:12px;width:auto;top:66px}
 }
+#hero{position:fixed;inset:0;z-index:0;overflow:hidden;background:#0b0b0b}
+#hero .tr{display:flex;height:100%;will-change:transform}
+#hero .tr img{flex:0 0 100%;width:100%;height:100%;object-fit:cover;object-position:center 25%;display:block}
+#hero:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.25) 0%,rgba(0,0,0,.1) 30%,rgba(0,0,0,.45) 70%,rgba(0,0,0,.6) 100%);pointer-events:none}
+#htxt{position:relative;z-index:1;min-height:58vh;display:flex;flex-direction:column;justify-content:flex-end;padding:0 22px 22px;max-width:480px;margin:0 auto}
+#htxt .mk{display:flex;align-items:center;gap:14px}
+#htxt .mk img{width:58px;height:58px;border-radius:14px;box-shadow:0 4px 18px rgba(0,0,0,.6)}
+#htxt .mk b{font-family:var(--fd);font-size:32px;letter-spacing:.28em;color:#fff;text-transform:uppercase;text-shadow:0 2px 14px rgba(0,0,0,.6)}
+#htxt p{color:#f1ede4;margin:10px 0 16px;font-size:16px;text-shadow:0 1px 10px rgba(0,0,0,.8)}
+#htxt .cta{align-self:flex-start;background:var(--gold);color:#111;font-weight:700;font-size:17px;border-radius:999px;padding:14px 28px;text-decoration:none}
+#htxt .dots{display:flex;gap:6px;margin-top:16px}
+#htxt .dots i{width:7px;height:7px;border-radius:9px;background:rgba(255,255,255,.4);transition:all .4s}
+#htxt .dots i.on{width:20px;background:var(--gold)}
+body.cli.confondo{background:#0b0b0b}
+body.cli.confondo #carga{background:transparent}
+body.cli.confondo .layout{position:relative;z-index:1}
+body.cli.confondo .phone{background:transparent;padding-top:6px;min-height:0;padding-bottom:40px;color:#f1ede4}
+body.cli.confondo .phone .hd{display:none}
+body.cli.confondo .cuerpo{background:rgba(12,12,12,.42);-webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px);border:1px solid rgba(255,255,255,.14);border-radius:18px;padding:16px 16px 22px;scroll-margin-top:12px;color:#f1ede4}
+body.cli.confondo .cuerpo .lbl{color:#e3dccb;text-shadow:0 1px 6px rgba(0,0,0,.6)}
+body.cli.confondo .cuerpo p{color:#e3dccb!important}
+body.cli.confondo .ptabs button{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.2);color:#e8e1d2}
+body.cli.confondo .ptabs button.on{background:var(--gold);border-color:var(--gold);color:#111;font-weight:600}
+body.cli.confondo .svc{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);color:#fff}
+body.cli.confondo .svc small{color:#d6cfbf}
+body.cli.confondo .svc .ph{background:rgba(255,255,255,.1);color:var(--gold)}
+body.cli.confondo .svc.sel{background:rgba(217,179,86,.2);border:2px solid var(--gold)}
+body.cli.confondo .svc.sel .pr{color:var(--gold)}
+body.cli.confondo .pg button{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.2);color:#fff}
+body.cli.confondo .pg button.sel{background:var(--gold);border-color:var(--gold);color:#111;font-weight:600}
+body.cli.confondo .phone input{background:rgba(0,0,0,.4);border-color:rgba(255,255,255,.25);color:#fff}
+body.cli.confondo .phone input::placeholder{color:#bdb6a6}
+body.cli.confondo .phone .go{background:var(--gold);color:#111;font-weight:700}
+body.cli.confondo .yo,body.cli.confondo .pol{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.2);color:#e8e1d2}
+body.cli.confondo .pol b{color:#fff}
+body.cli.confondo .yo button{color:#e3dccb}
+body.cli.confondo .cont .cl{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.18);color:#fff}
+body.cli.confondo .cont .cl small{color:#d6cfbf}
+body.cli.confondo .perr{color:#ffab98}
+body.cli.confondo .pok{background:rgba(124,196,143,.2);color:#dff3e5;border:1px solid rgba(124,196,143,.45)}
 </style>
 </head>
 <body>
@@ -168,10 +208,10 @@ body.cli .cont .cl{display:flex;align-items:center;gap:12px;background:#fff;bord
 <div class="modal" id="modal"><div class="card" id="mc"></div></div>
 <script>
 var API_URL="https://script.google.com/macros/s/AKfycbzezLsoWHf2hm6wqzYqCcVS6X3SQVrK8f9AhFqR2FZpnuSbrSURpJN2A5BGxdHRzF0n/exec";
-if(!window.google||!window.google.script){window.google={script:{get run(){var ok=function(){},fail=function(){},o={
+if(!window.google||!window.google.script){window.google={script:{get run(){var ok=function(){},fail=function(){},post=function(acc,d){fetch(API_URL,{method:"POST",redirect:"follow",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({accion:acc,datos:d})}).then(function(r){return r.json()}).then(function(x){x.ok?ok(x.data):fail({message:x.error||"No se pudo completar."})}).catch(function(){fail({message:"No se pudo conectar. Revisá tu internet y probá de nuevo."})})},o={
 withSuccessHandler:function(f){ok=f;return o},withFailureHandler:function(f){fail=f;return o},
 datosPublicos:function(){fetch(API_URL+"?api=publico",{redirect:"follow"}).then(function(r){return r.json()}).then(function(x){x.ok?ok(x.data):fail({message:x.error||"Error"})}).catch(function(){fail({message:"No se pudo conectar. Revisá tu internet y probá de nuevo."})})},
-reservar:function(d){fetch(API_URL,{method:"POST",redirect:"follow",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({accion:"reservar",datos:d})}).then(function(r){return r.json()}).then(function(x){x.ok?ok(x.data):fail({message:x.error||"No se pudo reservar."})}).catch(function(){fail({message:"No se pudo conectar. Revisá tu internet y probá de nuevo."})})}
+reservar:function(d){post("reservar",d)},miTurno:function(d){post("miTurno",d)},cambiarMiTurno:function(d){post("cambiarMiTurno",d)},cancelarMiTurno:function(d){post("cancelarMiTurno",d)}
 };return o}}}}
 </script><script>
 var DIAS=["dom","lun","mar","mié","jue","vie","sáb"],MESES=["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"];
@@ -197,6 +237,7 @@ function durOf(n){for(var i=0;i<SERV.length;i++)if(SERV[i].n==n)return SERV[i].m
 function items(d){var o=A[key(d)]||{};return Object.keys(o).map(function(k){return o[k]}).sort(function(a,b){return mins(a.h)-mins(b.h)})}
 function fin(o){return mins(o.h)+o.m}
 function overl(d,st,du,ex){return items(d).filter(function(o){return o.id!=ex&&st<fin(o)&&mins(o.h)<st+du})}
+function libresSin(d,du,ex){var sc=sched(d),out=[];if(!sc.o)return out;var c=mins(sc.f),e=mins(sc.t),g=0;while(c+du<=e&&g++<200){var ov=overl(d,c,du,ex);if(!ov.length){out.push(hhmm(c));c+=du}else{c=Math.max.apply(null,ov.map(fin))}}return out}
 function libresCli(d,du){var sc=sched(d),out=[];if(!sc.o)return out;var c=mins(sc.f),e=mins(sc.t),g=0;while(c+du<=e&&g++<200){var ov=overl(d,c,du);if(!ov.length){out.push(hhmm(c));c+=du}else{c=Math.max.apply(null,ov.map(fin))}}return out}
 var OPC10=[];for(var _m=7*60;_m<=22*60+50;_m+=10)OPC10.push(hhmm(_m));
 var view="agenda",day=new Date(base),mode="dia",pday=new Date(base),phr=null,pmsg="";
@@ -287,24 +328,49 @@ h+='</select><div style="display:flex;gap:6px"><select id="bh">'+OPC10.map(funct
 function libresVis(d,du){var LS=libresCli(d,du);if(!ADMIN&&key(d)==key(new Date())){var nw=new Date(),nm=nw.getHours()*60+nw.getMinutes()+30;LS=LS.filter(function(x){return mins(x)>=nm})}return LS}
 function abre(d){var mn=Math.min.apply(null,SERV.map(function(x){return x.m}));return libresVis(d,mn).length>0}
 var B={nombre:"Bneggas",desc:"Barber estudio",dir:"Rodríguez Peña 919, piso 3° A, Castelar",maps:"",tel:"11 2704-9762",ig:"bneggas",alias:"bneggas",anuncio:"",pol:"",fotos:[],logo:"",acc:"#d9b356",banco:"",titular:"",cbu:"",wconf:"Hola {cliente}! Tu turno en Bneggas quedó confirmado para el {fecha} a las {hora}. Te espero!",wrec:"Hola {cliente}! Te recuerdo tu turno en Bneggas de mañana a las {hora}. Si no podés venir, avisame así libero el horario.",wrecAsunto:"Recordatorio de tu turno en Bneggas"};
-var ptab="res",pacep=false;
+var ptab="res",pacep=false,MT=null;
+(function(){try{var q=new URLSearchParams(location.search);if(q.get("t")&&q.get("k"))MT={id:q.get("t"),k:q.get("k"),modo:"ver"}}catch(e){}})();
+function libresVisSin(d,du,ex){var LS=libresSin(d,du,ex);if(key(d)==key(new Date())){var nw=new Date(),nm=nw.getHours()*60+nw.getMinutes()+30;LS=LS.filter(function(x){return mins(x)>=nm})}return LS}
+function cargarMT(){if(!MT||ADMIN)return;MT.cargando=true;google.script.run.withSuccessHandler(function(d){MT.d=d;MT.cargando=false;MT.err="";if(ptab=="res"&&!MT.vio){ptab="mt";MT.vio=1}render()}).withFailureHandler(function(e){MT.cargando=false;MT.err=(e&&e.message)||"No se pudo cargar tu turno.";if(!MT.vio){ptab="mt";MT.vio=1}render()}).miTurno({id:MT.id,k:MT.k})}
+function vMT(){var h='',d=MT.d,wa="https://wa.me/549"+String(B.tel||"").replace(/\D/g,"");
+if(MT.err&&!d)return '<div class="perr" style="margin:12px 0">'+esc(MT.err)+'</div><a class="go" style="display:block;text-align:center;text-decoration:none" href="'+wa+'" target="_blank" rel="noopener">💬 Escribir por WhatsApp</a>';
+if(!d)return '<p style="margin:16px 0">Cargando tu turno…</p>';
+if(MT.modo=="hecho")return '<div class="pok" style="margin:12px 0">'+MT.msg+'</div><button class="go" data-pt="res">Sacar otro turno</button>';
+h+='<div class="lbl">Tu turno</div><div class="svc sel" style="cursor:default"><span class="ph">✂</span><span class="tx"><b>'+esc(d.s)+'</b><small>'+lbl(dkey(d.fecha))+' a las '+d.h+'</small></span></div>';
+if(d.paso)return h+'<p style="margin:12px 0">Este turno ya pasó.</p><button class="go" data-pt="res">Sacar otro turno</button>';
+if(!d.puede)return h+'<p style="margin:12px 0">Faltan menos de '+d.lim+' horas para tu turno. Para cambiarlo o cancelarlo, escribime por WhatsApp.</p><a class="go" style="display:block;text-align:center;text-decoration:none" href="'+wa+'" target="_blank" rel="noopener">💬 Escribir por WhatsApp</a>';
+if(MT.modo=="cancelar")return h+'<p style="margin:14px 0 10px"><b>¿Seguro que querés cancelar tu turno?</b> El horario queda libre para otra persona.</p>'+(MT.e?'<p class="perr">'+esc(MT.e)+'</p>':'')+'<button class="go" id="mtcok" style="background:var(--red);color:#fff"'+(MT.busy?' disabled':'')+'>'+(MT.busy?'Cancelando…':'Sí, cancelar mi turno')+'</button><button class="go" id="mtvol" style="background:transparent;border:1px solid currentColor;color:inherit;margin-top:8px">Volver</button>';
+if(MT.modo=="cambiar"){var dd=MT.dia||dkey(d.fecha);if(!abreSin(dd,d)){for(var j=0;j<14;j++){if(abreSin(add(base,j),d)){dd=add(base,j);break}}}MT.dia=dd;
+h+='<div class="lbl">Elegí el nuevo día</div><div class="pg">';for(var i=0;i<12;i++){var x=add(base,i);if(!abreSin(x,d))continue;h+='<button data-md="'+i+'" class="'+(key(x)==key(dd)?"sel":"")+'">'+corto(x)+'</button>'}h+='</div>';
+var LS=libresVisSin(dd,d.m,d.id).filter(function(x){return !(key(dd)==d.fecha&&x==d.h)});if(LS.indexOf(MT.hr)<0)MT.hr=null;
+h+='<div class="lbl">Elegí el nuevo horario</div>'+(LS.length?'<div class="pg">'+LS.map(function(x){return '<button data-mh="'+x+'" class="'+(x==MT.hr?"sel":"")+'">'+x+'</button>'}).join("")+'</div>':'<p style="font-size:14px">No quedan horarios este día. Probá otro.</p>');
+return h+(MT.e?'<p class="perr">'+esc(MT.e)+'</p>':'')+'<button class="go" id="mtmok"'+(MT.busy||!MT.hr?' disabled':'')+'>'+(MT.busy?'Guardando…':MT.hr?'Cambiar a '+corto(dd)+' '+MT.hr:'Elegí un horario')+'</button><button class="go" id="mtvol" style="background:transparent;border:1px solid currentColor;color:inherit;margin-top:8px">Volver</button>'}
+return h+'<p style="font-size:14px;margin:10px 0 12px">Podés cambiarlo o cancelarlo hasta '+d.lim+' horas antes.</p><button class="go" id="mtcam">🕑 Cambiar día u horario</button><button class="go" id="mtcan" style="background:transparent;border:1px solid currentColor;color:inherit;margin-top:8px">Cancelar mi turno</button>'}
+function abreSin(x,d){return libresVisSin(x,d.m,d.id).length>0}
+function wireMT(){if(!MT)return;var go=function(m){MT.modo=m;MT.e="";render()};
+if($("mtcam"))$("mtcam").onclick=function(){MT.hr=null;MT.dia=null;go("cambiar")};if($("mtcan"))$("mtcan").onclick=function(){go("cancelar")};if($("mtvol"))$("mtvol").onclick=function(){go("ver")};
+document.querySelectorAll("[data-md]").forEach(function(b){b.onclick=function(){MT.dia=add(base,+b.dataset.md);MT.hr=null;render()}});
+document.querySelectorAll("[data-mh]").forEach(function(b){b.onclick=function(){MT.hr=b.dataset.mh;render()}});
+if($("mtmok"))$("mtmok").onclick=function(){if(!MT.hr)return;MT.busy=1;MT.e="";render();var nf=key(MT.dia),nh=MT.hr;google.script.run.withSuccessHandler(function(){MT.busy=0;MT.modo="hecho";MT.msg="Listo, "+esc(MT.d.n)+". Tu turno ahora es el <b>"+lbl(MT.dia)+" a las "+nh+"</b>. Te mandamos la confirmación por mail.";MT.d.fecha=nf;MT.d.h=nh;cargarPublico()}).withFailureHandler(function(e){MT.busy=0;MT.e=(e&&e.message)||"No se pudo cambiar.";cargarPublico()}).cambiarMiTurno({id:MT.id,k:MT.k,fecha:nf,h:nh})};
+if($("mtcok"))$("mtcok").onclick=function(){MT.busy=1;MT.e="";render();google.script.run.withSuccessHandler(function(){MT.busy=0;MT.modo="hecho";MT.msg="Tu turno quedó cancelado. ¡Gracias por avisar con tiempo!";cargarPublico()}).withFailureHandler(function(e){MT.busy=0;MT.e=(e&&e.message)||"No se pudo cancelar.";render()}).cancelarMiTurno({id:MT.id,k:MT.k})}}
 function yo(){try{return JSON.parse(localStorage.getItem("bn_cliente")||"null")}catch(e){return null}}
 function vPag(){if(!abre(pday)){for(var j=0;j<14;j++){if(abre(add(base,j))){pday=add(base,j);break}}}
 var h='<h2>Mi página de turnos</h2><p class="sub">Esto es lo que ve tu cliente cuando toca tu link. No descarga nada.</p>';
 h+='<div class="link" style="flex-wrap:wrap">🔗 <span style="word-break:break-all;font-size:15px;font-weight:600">'+esc(LINKCLI.replace("https://",""))+'</span><button class="vercli" id="cpl" style="background:none">Copiar link</button><a class="vercli" href="'+esc(LINKCLI)+'" target="_blank" rel="noopener">Abrir como cliente</a></div>';
 h+='<div class="phone" style="--pacc:'+B.acc+'"><div class="hd">'+(B.logo?'<img src="'+B.logo+'" alt="">':'')+'<b>'+esc(B.nombre)+'</b><span style="font-size:13px;color:#6b665c">'+esc(B.desc)+'</span></div>';
-if(B.anuncio)h+='<div class="anun">📣 '+esc(B.anuncio)+'</div>';
+h+='<div class="cuerpo">';if(B.anuncio)h+='<div class="anun">📣 '+esc(B.anuncio)+'</div>';
 
-h+='<div class="ptabs"><button data-pt="res" class="'+(ptab=="res"?"on":"")+'">Reservar</button><button data-pt="con" class="'+(ptab=="con"?"on":"")+'">Contacto</button></div>';
+h+='<div class="ptabs"'+(MT&&!ADMIN?' style="grid-template-columns:1fr 1fr 1fr"':'')+'><button data-pt="res" class="'+(ptab=="res"?"on":"")+'">Reservar</button>'+(MT&&!ADMIN?'<button data-pt="mt" class="'+(ptab=="mt"?"on":"")+'">Mi turno</button>':'')+'<button data-pt="con" class="'+(ptab=="con"?"on":"")+'">Contacto</button></div>';
+if(ptab=="mt"&&MT&&!ADMIN)return h+vMT()+'</div></div>';
 if(ptab=="con"){var tel=String(B.tel).replace(/\D/g,"");var mp=B.maps||("https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(B.dir.replace(/,?\s*(piso|dpto|depto)[^,]*/ig,"")+", Buenos Aires, Argentina"));
-h+='<div class="cont"><a class="cl" href="'+esc(mp)+'" target="_blank" rel="noopener"><span class="ci">📍</span><span><b>Cómo llegar</b><small>'+esc(B.dir)+'</small></span><span class="ca">Ver mapa ›</span></a><a class="cl" href="https://wa.me/549'+tel+'" target="_blank" rel="noopener"><span class="ci" style="background:#25d366">💬</span><span><b>WhatsApp</b><small>'+esc(B.tel)+'</small></span><span class="ca">Escribir ›</span></a><a class="cl" href="https://instagram.com/'+encodeURIComponent(B.ig)+'" target="_blank" rel="noopener"><span class="ci" style="background:#e1306c">📸</span><span><b>Instagram</b><small>@'+esc(B.ig)+'</small></span><span class="ca">Ver perfil ›</span></a></div></div>';return h}
+h+='<div class="cont"><a class="cl" href="'+esc(mp)+'" target="_blank" rel="noopener"><span class="ci">📍</span><span><b>Cómo llegar</b><small>'+esc(B.dir)+'</small></span><span class="ca">Ver mapa ›</span></a><a class="cl" href="https://wa.me/549'+tel+'" target="_blank" rel="noopener"><span class="ci" style="background:#25d366">💬</span><span><b>WhatsApp</b><small>'+esc(B.tel)+'</small></span><span class="ca">Escribir ›</span></a><a class="cl" href="https://instagram.com/'+encodeURIComponent(B.ig)+'" target="_blank" rel="noopener"><span class="ci" style="background:#e1306c">📸</span><span><b>Instagram</b><small>@'+esc(B.ig)+'</small></span><span class="ca">Ver perfil ›</span></a></div></div></div>';return h}
 h+='<div class="lbl">1. Servicio</div><div class="svl">'+SERV.map(function(s,i){return '<button data-sv="'+i+'" class="svc'+(i==psv?" sel":"")+'">'+(s.f?'<img src="'+s.f+'" alt="">':'<span class="ph">✂</span>')+'<span class="tx"><b>'+esc(s.n)+'</b><small>'+(s.d?esc(s.d)+' · ':'')+dur(s.m)+'</small></span><span class="pr">'+plata(s.p)+'</span></button>'}).join("")+'</div>';
 h+='<div class="lbl">2. Día</div><div class="pg">';for(var i=0;i<12;i++){var d=add(base,i);if(!abre(d))continue;h+='<button data-pd="'+i+'" class="'+(key(d)==key(pday)?"sel":"")+'">'+corto(d)+'</button>'}h+='</div>';
 var LS=libresVis(pday,SERV[psv].m);if(LS.indexOf(phr)<0)phr=null;h+='<div class="lbl">3. Horario</div>'+(LS.length?'<div class="pg">'+LS.map(function(hr){return '<button data-ph="'+hr+'" class="'+(hr==phr?"sel":"")+'">'+hr+'</button>'}).join("")+'</div>':'<p style="font-size:14px;color:#6b665c">No quedan horarios para este servicio este día. Probá otro día.</p>');
 var YO=yo();h+='<div class="lbl">4. Tus datos</div>'+(YO&&!ADMIN?'<div class="yo">👋 Hola <b>'+esc(YO.n.split(" ")[0])+'</b>, ya tenemos tus datos guardados en este celu. <button id="yox" type="button">¿No sos vos?</button></div>':'')+'<input id="pn" placeholder="Nombre y apellido" autocomplete="name" value="'+esc(YO&&!ADMIN?YO.n:"")+'"><input id="pt" placeholder="Teléfono" inputmode="tel" autocomplete="tel" value="'+esc(YO&&!ADMIN?YO.tel:"")+'"><input id="pe" placeholder="Mail'+(cfg.rec?' (te mandamos el recordatorio)':'')+'" inputmode="email" autocomplete="email" value="'+esc(YO&&!ADMIN?YO.em:"")+'">';
 if(B.pol)h+='<div class="pol"><b>Política de turnos</b><div>'+esc(B.pol).replace(/\n/g,"<br>")+'</div><label><input type="checkbox" id="pac"'+(pacep?" checked":"")+'> Leí y acepto</label></div>';
 if(cfg.sena&&(B.cbu||B.banco))h+='<div class="pol"><b>Seña para confirmar</b><div>Transferí la seña a: '+esc(B.banco)+(B.titular?' · '+esc(B.titular):'')+(B.cbu?'<br>Alias/CBU: '+esc(B.cbu):'')+'</div></div>';
-h+='<p class="perr" id="perr"></p><button class="go" id="pgo">Reservar turno</button>'+(pmsg?'<div class="pok">'+pmsg+'</div>':'')+'</div>';return h}
+h+='<p class="perr" id="perr"></p><button class="go" id="pgo">Reservar turno</button>'+(pmsg?'<div class="pok">'+pmsg+'</div>':'')+'</div></div>';return h}
 var csec="datos";
 function vCfg(){function row(k,t,d){return '<div class="r"><span><b>'+t+'</b><br><span class="muted">'+d+'</span></span><button class="tg'+(cfg[k]?" on":"")+'" data-cf="'+k+'" aria-label="'+t+'"></button></div>'}
 var S=[["datos","Datos del negocio"],["logo","Logo y colores"],["anun","Anuncio"],["pol","Política de turnos"],["banco","Datos para seña"],["wsp","Mensajes"],["avisos","Avisos"]];
@@ -330,7 +396,7 @@ document.querySelectorAll("[data-es]").forEach(function(b){b.onclick=function(){
 if($("nsv"))$("nsv").onclick=function(){editServ(-1)};
 document.querySelectorAll("[data-sv]").forEach(function(b){b.onclick=function(){psv=+b.dataset.sv;var k=[$("pn").value,$("pt").value,$("pe").value];render();$("pn").value=k[0];$("pt").value=k[1];$("pe").value=k[2]}});
 document.querySelectorAll("[data-cs]").forEach(function(b){b.onclick=function(){csec=b.dataset.cs;render()}});
-document.querySelectorAll("[data-pt]").forEach(function(b){b.onclick=function(){ptab=b.dataset.pt;render()}});
+document.querySelectorAll("[data-pt]").forEach(function(b){b.onclick=function(){ptab=b.dataset.pt;if(MT&&MT.modo=="hecho"&&ptab=="mt")MT.modo="ver";render()}});wireMT();
 document.querySelectorAll("[data-acc]").forEach(function(b){b.onclick=function(){B.acc=b.dataset.acc;render();okm("Color aplicado. Miralo en Mi página de turnos.")}});
 document.querySelectorAll("[data-df]").forEach(function(b){b.onclick=function(){B.fotos.splice(+b.dataset.df,1);render()}});
 document.querySelectorAll("[data-clr]").forEach(function(b){b.onclick=function(){B[b.dataset.clr]="";render()}});
@@ -380,10 +446,23 @@ function toast(t){var e=$("toast");e.innerHTML='<b>🔔 Nuevo turno</b>'+t;e.sty
 function modal(h){$("mc").innerHTML=h;$("modal").style.display="flex"}
 function close(){$("modal").style.display="none"}
 $("modal").onclick=function(e){if(e.target.id=="modal")close()};
+function waNum(t){var d=String(t||'').replace(/\D/g,'');if(d.indexOf('549')==0)return d;if(d.indexOf('54')==0)return '549'+d.slice(2);if(d.charAt(0)=='0')d=d.slice(1);return '549'+d}
+function avisarCli(o){try{google.script.run.withFailureHandler(function(){}).avisarCliente(TOK,o)}catch(e){}}
+function mover(s,id){var d0=day,d=day,DO=[];for(var i=-1;i<31;i++)DO.push(add(base,i));if(!DO.some(function(x){return key(x)==key(d)}))DO.push(d);var tm=/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(s.em||""),hs=OPC10.slice();if(hs.indexOf(s.h)<0)hs=hs.concat([s.h]).sort();
+modal('<h2 style="font-size:22px">Cambiar día u horario</h2><p class="sub">'+esc(s.n)+' · '+esc(s.s)+'<br>Ahora: '+lbl(d0)+' a las '+s.h+'</p><label class="fl">Día</label><select id="md">'+DO.map(function(x,i){return '<option value="'+i+'"'+(key(x)==key(d)?" selected":"")+'>'+(key(x)==key(base)?"Hoy, ":key(x)==key(add(base,1))?"Mañana, ":"")+lbl(x)+'</option>'}).join("")+'</select><label class="fl">Horarios disponibles</label><div id="mchips" class="pg dk"></div><details class="sobd"><summary>¿Otra hora? Elegila acá</summary><select id="mh" style="margin-top:8px">'+hs.map(function(h){return '<option'+(h==s.h?" selected":"")+'>'+h+'</option>'}).join("")+'</select></details><div id="mst" class="nst"></div>'+(tm?'<label style="display:flex;gap:8px;align-items:center;margin:4px 0 12px"><input type="checkbox" id="mav" checked style="width:auto;margin:0"> Avisarle por mail el nuevo horario</label>':'<p class="muted" style="margin:4px 0 12px">No tiene mail cargado: avisale vos por WhatsApp.</p>')+'<div style="display:flex;gap:8px"><button class="btn gh" id="mvx">Volver</button><button class="btn" id="mvok">Guardar cambio</button></div>');
+function chips(){var L=libresSin(d,s.m,id),c=$("mchips");c.innerHTML=L.length?L.map(function(h){return '<button data-mc="'+h+'" class="'+(h==$("mh").value?"sel":"")+'">'+h+'</button>'}).join(""):'<p class="muted" style="grid-column:1/-1;margin:0">No hay horarios libres ese día. Podés elegir otra hora abajo.</p>';c.querySelectorAll("[data-mc]").forEach(function(b){b.onclick=function(){$("mh").value=b.dataset.mc;chips();chk()}})}
+function chk(){var st=mins($("mh").value),ov=overl(d,st,s.m,id),sc=sched(d),t=$("mh").value+' a '+hhmm(st+s.m),e=$("mst");if(key(d)==key(d0)&&$("mh").value==s.h)e.innerHTML='<span class="muted">Elegí el nuevo día u horario.</span>';else if(ov.length)e.innerHTML='<span class="w">⚠ '+t+' se superpone con '+ov.map(function(o){return esc(o.t=="bloq"?"un bloqueo":o.n)}).join(", ")+'. Se guarda igual como sobreturno.</span>';else if(!sc.o||st<mins(sc.f)||st+s.m>mins(sc.t))e.innerHTML='<span class="w">⚠ '+t+' queda fuera de tu horario de ese día. Lo podés guardar igual.</span>';else e.innerHTML='<span class="ok">✓ Libre: '+t+'</span>'}
+$("md").onchange=function(){d=DO[+this.value];var L=libresSin(d,s.m,id);if(L.length&&L.indexOf($("mh").value)<0)$("mh").value=L[0];chips();chk()};$("mh").onchange=function(){chips();chk()};chips();chk();
+$("mvx").onclick=function(){close();op(id)};
+$("mvok").onclick=function(){var nh=$("mh").value;if(key(d)==key(d0)&&nh==s.h){close();op(id);return}var ant={fecha:key(d0),h:s.h};delI(d0,id);s.h=nh;addI(d,nh,s);if(tm&&$("mav").checked)avisarCli({tipo:"cambio",id:id,n:s.n,em:s.em,s:s.s,fecha:key(d),h:nh,antes:ant});day=d;close();render();toast("Turno movido a "+lbl(d)+" "+nh)}}
 function op(id){var s=(A[key(day)]||{})[id];if(!s)return;var hr=s.h;
 if(s.t=="turno"){var sob=overl(day,mins(s.h),s.m,s.id).some(function(o){return mins(o.h)<mins(s.h)});
-modal('<h2 style="font-size:22px">'+esc(s.n)+'</h2><p class="sub">'+esc(s.s)+' · '+lbl(day)+'<br>De '+s.h+' a '+hhmm(fin(s))+(sob?' · <b style="color:var(--gold)">Sobreturno</b>':'')+'<br>Tel '+esc(s.tel)+(s.em?'<br>Mail '+esc(s.em):'')+'</p>'+(s.rec?'<div class="recbox"><b>📧 Recordatorio por mail · '+RECO[s.rec]+'</b><div class="muted" style="margin-bottom:4px">Para: '+esc(s.em)+' · Asunto: '+esc(B.wrecAsunto)+'</div><div>'+esc(recMsg(s,day,hr))+'</div><button class="btn gh" id="rq" style="padding:6px 10px;margin-top:8px">Desactivar recordatorio</button></div>':'<div class="recbox"><b>Sin recordatorio</b><button class="btn gh" id="ra" style="padding:6px 10px;margin-top:8px">Activar recordatorio</button></div>')+'<a class="btn" style="display:block;text-align:center;text-decoration:none;margin-bottom:8px;background:#25d366;color:#0b2914" target="_blank" href="https://wa.me/549'+String(s.tel).replace(/\D/g,"")+'?text='+encodeURIComponent(B.wconf.replace("{cliente}",s.n.split(" ")[0]).replace("{fecha}",lbl(day)).replace("{hora}",hr))+'">💬 Escribirle por WhatsApp</a><p class="muted" style="margin:-2px 0 10px;font-size:12px">Se abre tu WhatsApp con un mensaje listo para editar. Gratis, lo mandás vos.</p><div style="display:flex;gap:8px"><button class="btn gh" id="mx">Cerrar</button><button class="btn" id="mcan" style="background:var(--red)">Cancelar turno</button></div>');
-$("mx").onclick=close;$("mcan").onclick=function(){delI(day,id);close();render()};
+modal('<h2 style="font-size:22px">'+esc(s.n)+'</h2><p class="sub">'+esc(s.s)+' · '+lbl(day)+'<br>De '+s.h+' a '+hhmm(fin(s))+(sob?' · <b style="color:var(--gold)">Sobreturno</b>':'')+'<br>Tel '+esc(s.tel)+(s.em?'<br>Mail '+esc(s.em):'')+'</p>'+(s.rec?'<div class="recbox"><b>📧 Recordatorio por mail · '+RECO[s.rec]+'</b><div class="muted" style="margin-bottom:4px">Para: '+esc(s.em)+' · Asunto: '+esc(B.wrecAsunto)+'</div><div>'+esc(recMsg(s,day,hr))+'</div><button class="btn gh" id="rq" style="padding:6px 10px;margin-top:8px">Desactivar recordatorio</button></div>':'<div class="recbox"><b>Sin recordatorio</b><button class="btn gh" id="ra" style="padding:6px 10px;margin-top:8px">Activar recordatorio</button></div>')+'<a class="btn" style="display:block;text-align:center;text-decoration:none;margin-bottom:8px;background:#25d366;color:#0b2914" target="_blank" href="https://wa.me/'+waNum(s.tel)+'?text='+encodeURIComponent(B.wconf.replace("{cliente}",s.n.split(" ")[0]).replace("{fecha}",lbl(day)).replace("{hora}",hr))+'">💬 Escribirle por WhatsApp</a><p class="muted" style="margin:-2px 0 10px;font-size:12px">Se abre tu WhatsApp con un mensaje listo para editar. Gratis, lo mandás vos.</p><button class="btn gh" id="mmov" style="width:100%;margin-bottom:8px">🕑 Cambiar día u horario</button><button class="btn gh" id="medit" style="width:100%;margin-bottom:8px">✏️ Editar nombre, teléfono o mail</button><div style="display:flex;gap:8px"><button class="btn gh" id="mx">Cerrar</button><button class="btn" id="mcan" style="background:var(--red)">Cancelar turno</button></div>');
+$("mx").onclick=close;$("mmov").onclick=function(){mover(s,id)};
+$("mcan").onclick=function(){var tm=/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(s.em||"");modal('<h2 style="font-size:22px">¿Cancelar este turno?</h2><p class="sub">'+esc(s.n)+' · '+esc(s.s)+'<br>'+lbl(day)+' a las '+s.h+'</p>'+(tm?'<label style="display:flex;gap:8px;align-items:center;margin:0 0 12px"><input type="checkbox" id="cav" checked style="width:auto;margin:0"> Avisarle por mail a '+esc(s.em)+'</label>':'<p class="muted" style="margin:0 0 12px">No tiene mail cargado: avisale vos por WhatsApp.</p>')+'<div style="display:flex;gap:8px"><button class="btn gh" id="cno">Volver</button><button class="btn" id="csi" style="background:var(--red)">Sí, cancelar</button></div>');
+$("cno").onclick=function(){close();op(id)};$("csi").onclick=function(){if(tm&&$("cav").checked)avisarCli({tipo:"cancelado",n:s.n,em:s.em,s:s.s,fecha:key(day),h:s.h});delI(day,id);close();render();toast("Turno cancelado")}};
+$("medit").onclick=function(){modal('<h2 style="font-size:22px">Editar datos</h2><p class="sub">'+esc(s.s)+' · '+lbl(day)+' '+s.h+'</p><label class="muted">Nombre</label><input id="en" value="'+esc(s.n)+'"><label class="muted">Teléfono</label><input id="et" type="tel" value="'+esc(s.tel||"")+'"><label class="muted">Mail</label><input id="ee" type="email" value="'+esc(s.em||"")+'"><p class="perr" id="eerr"></p><div style="display:flex;gap:8px"><button class="btn gh" id="ecx">Cancelar</button><button class="btn" id="eok">Guardar</button></div>');
+$("ecx").onclick=function(){close();op(id)};$("eok").onclick=function(){var n=$("en").value.trim(),t=$("et").value.trim().replace(/^—$/,""),m=$("ee").value.trim();if(!n){$("eerr").textContent="Poné el nombre.";return}if(t&&t.replace(/\D/g,"").length<8){$("eerr").textContent="Revisá el teléfono: número completo con código de área.";return}if(m&&!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(m)){$("eerr").textContent="Revisá el mail.";return}s.n=n;s.tel=t;s.em=m;if(!m)delete s.rec;close();render();op(id)}};
 if($("rq"))$("rq").onclick=function(){delete s.rec;close();render()};
 if($("ra"))$("ra").onclick=function(){if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(s.em||"")){alertMsg("Este turno no tiene mail. Cargáselo para mandarle el recordatorio.");return}s.rec=RECDEF;close();render()};return}
 modal('<h2 style="font-size:22px">🔒 '+esc(s.r||"Bloqueado")+'</h2><p class="sub">'+lbl(day)+' · de '+s.h+' a '+hhmm(fin(s))+'</p><div style="display:flex;gap:8px"><button class="btn gh" id="mx">Cerrar</button><button class="btn" id="mlib">Liberar horario</button></div>');
@@ -435,7 +514,7 @@ if(msg.indexOf("pesada")>=0){var resto=lote.filter(function(c){return c.op!="log
 var _render=render;render=function(){_render();sincronizar()};
 function aplicar(d){if(d.SERV)SERV=d.SERV;if(d.HS)HS=d.HS;if(d.OVR)OVR=d.OVR;if(d.B)B=Object.assign(B,d.B);if(d.logo!==undefined)B.logo=d.logo||"";if(d.cfg)cfg=Object.assign(cfg,d.cfg);if(d.RECDEF)RECDEF=d.RECDEF;
 var lg=$("lg");if(B.logo){lg.src=B.logo;lg.style.visibility="visible"}else lg.style.visibility="hidden";document.querySelector(".brand b").textContent=B.nombre||"Bneggas"}
-function cargarPublico(){google.script.run.withSuccessHandler(function(d){A={};for(var k in d.busy)d.busy[k].forEach(function(o){addI(dkey(k),o.h,o)});aplicar(d);
+function cargarPublico(){google.script.run.withSuccessHandler(function(d){A={};for(var k in d.busy)d.busy[k].forEach(function(o){addI(dkey(k),o.h,o)});aplicar(d);armarFondo();if(MT&&!MT.d&&!MT.cargando&&!MT.err)cargarMT();
 if(psv>=SERV.length)psv=0;render();cargando(false)}).withFailureHandler(function(e){cargando(false,"No se pudo cargar la página. Probá de nuevo en un rato.")}).datosPublicos()}
 function cargarPanel(){google.script.run.withSuccessHandler(function(d){A={};for(var k in d.items)d.items[k].forEach(function(o){addI(dkey(k),o.h,o)});
 aplicar(d);if(d.url)URLAPP=d.url;CUOTA=d.cuota;notifs=[];var lim=Date.now()-3*864e5;
@@ -457,6 +536,13 @@ document.addEventListener("visibilitychange",function(){if(!document.hidden)refr
 window.addEventListener("focus",function(){refrescar()});
 window.addEventListener("pageshow",function(e){if(e.persisted)refrescar()});
 setInterval(function(){if(!document.hidden)refrescar()},60000);
+function armarFondo(){var F=window.FOTOS_FONDO;if(!F||!F.length||ADMIN)return;var h=$("hero");if(!h){var n=F.length;h=document.createElement("div");h.id="hero";h.setAttribute("aria-hidden","true");h.innerHTML='<div class="tr">'+F.concat([F[0]]).map(function(u){return '<img src="'+u+'" alt="">'}).join("")+'</div>';
+var t=document.createElement("section");t.id="htxt";t.innerHTML='<div class="mk"><img id="hlogo" alt="" style="display:none"><b id="hnom"></b></div><p id="hdesc"></p><a class="cta" href="#" id="hcta">Reservá tu turno</a><div class="dots">'+F.map(function(_,i){return '<i'+(i?'':' class="on"')+'></i>'}).join("")+'</div>';
+document.body.insertBefore(t,document.body.firstChild);document.body.insertBefore(h,document.body.firstChild);document.body.classList.add("confondo");
+$("hcta").onclick=function(e){e.preventDefault();var c=document.querySelector(".cuerpo");if(c)c.scrollIntoView({behavior:"smooth"})};
+var tr=h.querySelector(".tr"),D=t.querySelectorAll(".dots i"),k=0,quieto=window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches;
+if(n>1)setInterval(function(){if(document.hidden)return;k++;tr.style.transition=quieto?"none":"transform .9s cubic-bezier(.6,0,.2,1)";tr.style.transform="translateX(-"+k*100+"%)";D.forEach(function(d,i){d.classList.toggle("on",i==k%n)});if(k==n)setTimeout(function(){tr.style.transition="none";tr.style.transform="translateX(0)";k=0},950)},4000)}
+$("hnom").textContent=B.nombre||"Bneggas";$("hdesc").textContent=(B.desc?B.desc+" · ":"")+"Castelar";if(B.logo){$("hlogo").src=B.logo;$("hlogo").style.display=""}}
 if(ADMIN){document.body.classList.remove("cli");try{TOK=localStorage.getItem("bn_tok")}catch(e){}if(TOK){cargando(true);cargarPanel()}else pinScreen()}
 else{document.body.classList.add("cli");view="pagina";cargando(true);cargarPublico();setInterval(function(){if(!document.hidden&&!($("pn")&&$("pn").value))cargarPublico()},120000)}
 </script>
